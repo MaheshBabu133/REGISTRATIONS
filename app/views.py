@@ -71,8 +71,7 @@ def change_password(request):
     return render(request,'change_password.html')
 
 
-
-def forget_password(request):
+'''def forget_password(request):
     if request.method=='POST':
         username=request.POST['username']
         pw=request.POST['pw']
@@ -80,6 +79,20 @@ def forget_password(request):
         UO.set_password(pw)
         UO.save()
         return HttpResponse('<h1>Password change successfully</h1>')
+    return render(request,'forget_password.html')'''
+
+def forget_password(request):
+    if request.method=='POST':
+        username=request.POST['username']
+        pw=request.POST['pw']
+        LUO=User.objects.filter(username=username)
+        if LUO:
+            UO=LUO[0]
+            UO.set_password(pw)
+            UO.save()
+            return HttpResponse('<h1>Password change successfully</h1>')
+        else:
+            return HttpResponse("user not found")
     return render(request,'forget_password.html')
 
 
@@ -101,7 +114,7 @@ def registrations(request):
             NPFO=PFO.save(False)
             NPFO.username=NUFO
             NPFO.save()
-            send_mail('registartion',
+            send_mail('registrations',
                       'suuccessful',
                       'maheshbabuntr123@gmail.com',
                       [NUFO.email],
