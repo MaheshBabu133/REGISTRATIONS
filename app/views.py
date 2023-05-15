@@ -114,13 +114,15 @@ def registrations(request):
             NPFO=PFO.save(False)
             NPFO.username=NUFO
             NPFO.save()
-            send_mail('registrations',
-                      'suuccessful',
+            send_mail('Registratioon',
+                      "Succefully Registration is Done",
                       'maheshbabuntr123@gmail.com',
                       [NUFO.email],
-                      fail_silently=True)
+                      fail_silently=False
+
+                      )
             
             return HttpResponse('<h1>Registartion done successfully</h1>')
         else:
-            return HttpResponse('<h1>data is valid</h1>')
+            return HttpResponse('<h1>data is not valid</h1>')
     return render(request,'registrations.html',d)
